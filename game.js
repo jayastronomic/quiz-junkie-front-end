@@ -3,12 +3,6 @@ const h2 = document.querySelector('h2');
 const form = document.querySelector('form')
 const question = document.getElementById("questions");
 
-/////// FUNCTIONS /////////////
-// function fetchQuestion () {
-//     fetch("http://localhost:3000/api/v1/quizzes/1/questions")
-//     .then(resp => resp.json())
-//     .then(quiz => console.log(quiz))
-// }
 
 function userPostObj(){
     let username = event.target[0].value;
@@ -25,23 +19,21 @@ function userPostObj(){
     }
 }
 
-// function placeOnPage(user){
-
-// }
-function showUser(users){
-  const players = users.data
+function showUsers(users){
+  const players = users
   players.forEach(player =>{
-     let pTag = document.createElement('p')
-     let div = document.getElementById('scroll-content')
-     pTag.innerHTML = player.username
-     div.append(pTag)
+     let li = document.createElement('li')
+     let ul = document.querySelector('ul')
+     li.innerHTML = player.username
+     ul.append(li)
   })
 }
 
 function fetchUsers(){
     fetch("http://localhost:3000/api/v1/users")
     .then(resp => resp.json())
-    .then(users => showUser(users))
+    .then(users => showUsers(users));
+    
 }
 
 function createUser() {
@@ -52,10 +44,10 @@ function createUser() {
     .catch(err => console.log(err))
     form.reset()  // location.href = "/game.html";
 }
-function fetchFirstQuizQuestions(){
-    fetch("http://localhost:3000/api/v1/quizzes/1/questions")
+function fetchQuestions(){
+    fetch("https://opentdb.com/api.php?amount=10&type=multiple")
     .then(resp => resp.json())
-    .then(quizData => console.log(quizData))
+    .then(questionData => console.log(questionData))
 }
 
 
@@ -71,12 +63,11 @@ function changeDOM(user){
         button.setAttribute('href', '/game.html')
         button.innerHTML = `Start Quiz ${user.username}`
         div.appendChild(button)  
-        debugger
     }
 
 
 ////// INVOKED FUNCTIONS /////////
-fetchFirstQuizQuestions()
+fetchQuestions()
 fetchUsers()
 
 

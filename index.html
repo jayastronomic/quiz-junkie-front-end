@@ -12,19 +12,15 @@
         <div id="home" class="flex-center flex-column">
             <h1>Quiz Junkie</h1>
             <form>
-                    <input type="text" name="username" class="field" placeholder="Type Username Here">
-                    <input type="submit" value="Create Username" class="submit-btn" >
+                <input type="text" name="username" class="field" placeholder="Type Username Here">
+                <input type="submit" value="Create Username" class="submit-btn" >
             </form>
              <a class="btn" href="/highscore.html">High Score</a>
 
 
-             <div class="header">
-                <h2>Scroll Indicator</h2>
-                <div class="progress-container">
-                  <div class="progress-bar" id="myBar"></div>
-                </div>  
-              </div>
-              <div id="scroll-content" class="content">
+             <div class="scroll-header">
+                <h2>List of Players</h2>
+                <div id="scroll-content" class="content">
                 <h3>Scroll Down to See The Effect</h3>
                 <p>We have created a "progress bar" to <b>show how far a page has been scrolled</b>.</p>
                 <p>It also <b>works when you scroll back up</b>.</p>
@@ -40,18 +36,8 @@
                 <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
                 <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
               </div>
-              <script>
-                // When the user scrolls the page, execute myFunction 
-                window.onscroll = function() {myFunction()};
-                
-                function myFunction() {
-                  var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-                  var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                  var scrolled = (winScroll / height) * 100;
-                  document.getElementById("myBar").style.width = scrolled + "%";
-                }
-                </script>
-             
+                </div>  
+              </div>
         </div>
     </div>
 </body>

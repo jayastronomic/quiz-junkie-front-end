@@ -1,6 +1,7 @@
 //////// CONSTANTS ////////////
 const h2 = document.querySelector('h2');
 const form = document.querySelector('form')
+const question = document.getElementById("questions");
 
 /////// FUNCTIONS /////////////
 // function fetchQuestion () {

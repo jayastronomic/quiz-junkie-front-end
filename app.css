@@ -149,7 +149,7 @@
   border: 1px solid grey;
   font: 16px Georgia;
   overflow: auto;
-
+}
 
 /* Style the header: fixed position (always stay at the top) */
 /* .header {
@@ -174,3 +174,12 @@
   background: #4caf50;
   width: 0%;
 } */
+
+
+#error-message {
+  color: red;
+}
+
+#error-container {
+  padding: 2rem;
+}

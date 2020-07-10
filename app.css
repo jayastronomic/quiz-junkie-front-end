@@ -183,3 +183,36 @@
 #error-container {
   padding: 2rem;
 }
+
+table{
+ width: 200px;
+ border-spacing: 4px;
+ text-align: center;
+ table-layout: fixed;
+}
+
+
+th {
+  text-align: left;
+}
+
+table, tr, th, td {
+  border: 1px solid;
+  font-size: 12px;
+  border-collapse: collapse;
+  font-family: Arial;
+  background: linear-gradient(top, #3c3c3c 0%, #222222 100%);
+  background: -webkit-linear-gradient(top #3c3c3c 0%, #222222 100%); 
+}
+
+th, td {
+ padding: 4px; 
+}
+
+tr:nth-child(even) {
+  background-color: #fff;
+}
+
+tr:nth-child(odd) {
+  background-color: #eee;
+}

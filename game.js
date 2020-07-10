@@ -19,14 +19,20 @@ function userPostObj(){
     }
 }
 
+function showUserAndScore(player){
+    return `
+    <tr><td>${player.username}</td><td>${player.score}</td></tr> 
+      `
+}
+
 function showUsers(users) {
-  const players = users.data.users
-  const scores = users.data.userscores
+  const players = users
   players.forEach(player => {
-     let li = document.createElement('li')
-     let ul = document.querySelector('ul')
-     li.innerHTML = player.username
-     ul.append(li)
+      let table = document.querySelector('table')
+    //  let li = document.createElement('li')
+    //  let ul = document.querySelector('ul')
+     table.innerHTML += showUserAndScore(player)
+    //  ul.append(li)
   })
 }
 

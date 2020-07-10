@@ -30,7 +30,6 @@ function parseQuestionObj(questionObj){
 }
 
 function fetchQuestionObj(){
-    debugger
     fetch('https://opentdb.com/api.php?amount=10&type=multiple')
     .then(resp => resp.json())
     .then(questionObj => parseQuestionObj(questionObj))

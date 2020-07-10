@@ -1,8 +1,11 @@
 //////// CONSTANTS ////////////
-// const h2 = document.querySelector('h2');
-const userGet = document.querySelector('form');
+const h2 = document.querySelector('h2');
+const form = document.querySelector('form');
 const question = document.getElementById('question');
 const choices = Array.from(document.getElementsByClassName('choice-text'));
+const questionCounterText = document.getElementById('question-text');
+const scoreText = document.getElementById('score')
+
 
 let currentQuestion = {};
 let acceptingAnswers = false;
@@ -92,7 +95,7 @@ let questions = [
         choice4: "Heartbleed",
         answer: 4,
     },
-];
+  ];
 /////////////////////////////////////////////////////////
 
 ////////////////USER////////////////////////////
@@ -112,8 +115,7 @@ function userPostObj(){
 };
 
 function showUsers(users) {
-  const players = users.data.users
-  const scores = users.data.userscores
+  const players = users
   players.forEach(player => {
      let li = document.createElement('li')
      let ul = document.querySelector('ul')
@@ -139,8 +141,9 @@ function createUser() {
 ////////////////////////////////////////////////////
 
 
-/////// EVENT LISTENERS ///////
-// userGet.addEventListener('submit', userPostObj);
+/////// EVENT LISTENERS ////////////////////
+// form.addEventListener('submit', createUser);
+////////////////////////////////////////////
 
 
 function changeIndexDOM(userObj){
@@ -156,7 +159,7 @@ function changeIndexDOM(userObj){
         button.setAttribute('href', '/game.html')
         button.innerHTML = `Start Quiz ${userObj.username}`
         div.insertBefore(button, a)  
-        form.remove() 
+        // form.remove() 
     };
 };
 
@@ -173,20 +176,19 @@ startGame = () => {
     questionCounter = 0;
     score = 0;
     availableQuestions = [...questions];
-    console.log(availableQuestions)
     getNewQuestion();
-    consol.log(questions)
 };
 
 getNewQuestion = () => {
     if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
         //go to the end page
-        // return window.location.assign('/end.html');
+        return window.location.assign('/game.html')
     }
     questionCounter++;
+    questionCounterText.innerText = `${questionCounter}/ ${MAX_QUESTIONS}`;
     const questionIndex = Math.floor(Math.random() * availableQuestions.length);
     currentQuestion = availableQuestions[questionIndex];
-    question.innerText = currentQuestion.question;
+    question.innerHTML = currentQuestion.question 
 
     choices.forEach((choice) => {
         const number = choice.dataset['number'];
@@ -197,34 +199,66 @@ getNewQuestion = () => {
     acceptingAnswers = true;
 };
 
-choices.forEach(choice => {
-    choice.addEventListener("click", e => {
-      if (!acceptingAnswers) return;
-  
-      acceptingAnswers = false;
-      const selectedChoice = e.target;
-      const selectedAnswer = selectedChoice.dataset["number"];
-  
-      let classToApply =
-        selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
-  
-      selectedChoice.parentElement.classList.add(classToApply);
-  
-      setTimeout(() => {
-        selectedChoice.parentElement.classList.remove(classToApply);
-        getNewQuestion();
-      }, 1000);
-    });
-  });
-  
-  startGame();
-//////////////////////////////////////////////////////////////////////
+choices.forEach((choice) => {
+    choice.addEventListener('click', (e) => {
+        if (!acceptingAnswers) return;
 
+        acceptingAnswers = false;
+        const selectedChoice = e.target;
+        const selectedAnswer = selectedChoice.dataset['number'];
+
+        let classToApply =
+            selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect';
+
+        if (classToApply === 'correct') {
+            incrementScore(CORRECT_BONUS);
+        }
+
+        selectedChoice.parentElement.classList.add(classToApply);
+
+        setTimeout(() => {
+            selectedChoice.parentElement.classList.remove(classToApply);
+            getNewQuestion();
+        }, 1000);
+    });
+});
+
+incrementScore = (num) => {
+    score += num;
+    scoreText.innerText = score;
+};
+  
+//////////////////////////////////////////////////////////////////////
+// function fetchQuestions() {
+//     fetch("https://opentdb.com/api.php?amount=50&difficulty=hard&type=multiple")
+//     .then(resp => {
+//         return resp.json();
+//     })
+//     .then((loadedQuestions) => {
+//         questions = loadedQuestions.results.map((loadedQuestion) => {
+//             const formattedQuestion = {
+//                 question: loadedQuestion.question
+//             };
+//             const answerChoices = [...loadedQuestion.incorrect_answers];
+//             formattedQuestion.answer = Math.floor(Math.random() * 3) + 1;
+//             answerChoices.splice(
+//                 formattedQuestion.answer - 1,
+//                 0,
+//                 loadedQuestion.correct_answer
+//             );
+//             answerChoices.forEach((choice, index) => {
+//                 formattedQuestion['choice' + (index + 1)] = choice;
+//             });
+//             return formattedQuestion;
+//         })
+//     })
+// };
 
 ////// INVOKED FUNCTIONS /////////
 // fetchQuestions()
 fetchUsers();
 startGame();
+// getNewQuestion();
 
 
 
